@@ -2,6 +2,8 @@
 
 *(package name: `anomaly` — see `pyproject.toml`; DriftSentrix is this project's name)*
 
+**[Live demo →](https://driftsentrix-shourya.streamlit.app/)**
+
 Streaming multivariate time-series anomaly detection with an honest evaluation
 protocol, a served streaming scorer, and drift monitoring.
 
@@ -137,12 +139,15 @@ docker compose up   # requires artifacts/model_v1 to already exist (see export s
 
 ## Live demo
 
+**[Try it live: driftsentrix-shourya.streamlit.app](https://driftsentrix-shourya.streamlit.app/)**
+
 `streamlit_app.py` is a separate, lighter demo layer for visual exploration
 (live baseline detection on synthetic data, the PA-inflation study, and a
 CSV upload tab) — the FastAPI service above is the actual production-shaped
 deliverable; this is the clickable version for browsing without running
 anything locally.
 
+Run it yourself instead:
 ```bash
 streamlit run streamlit_app.py
 ```
