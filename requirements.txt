@@ -11,6 +11,6 @@ uvicorn
 pydantic
 httpx
 streamlit
-pytest
-ruff
+pytest>=8.0
+ruff>=0.9,<1.0
 -e .
