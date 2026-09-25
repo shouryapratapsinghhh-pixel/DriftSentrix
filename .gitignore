@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+data/*
+!data/README.md
+reports/runs/
+reports/figures/
+artifacts/
+*.pt
+*.ckpt
+.DS_Store

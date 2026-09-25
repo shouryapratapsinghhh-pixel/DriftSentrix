@@ -1,0 +1,31 @@
+# docker compose up
+#   MODEL_DIR must point to an artifact directory produced by:
+#     python -m anomaly.export --config <config> --model lstm_ae --threshold-mode pot --out artifacts/model_v1
+#   before starting, since no model is baked into the image.
+#
+# docker compose --profile redis up
+#   also starts a Redis container, for streaming/redis_source.py's
+#   RedisStreamSource (an alternative to the in-memory queue used in tests/
+#   demos -- NOT required by anything in this repo's test suite; import-
+#   guarded, so the service runs fine without redis or this profile).
+
+services:
+  anomaly-service:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_DIR=/artifacts/model_v1
+    volumes:
+      - ./artifacts:/artifacts:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    profiles: ["redis"]  # only started with --profile redis
+    ports:
+      - "6379:6379"

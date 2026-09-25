@@ -1,0 +1,16 @@
+numpy
+pandas
+scikit-learn
+scipy
+pyyaml
+tabulate
+torch
+matplotlib
+fastapi
+uvicorn
+pydantic
+httpx
+streamlit
+pytest
+ruff
+-e .

@@ -1,0 +1,9 @@
+{
+  "model": "transformer_ae",
+  "mode": "in_process",
+  "n_pushes": 1000,
+  "throughput_points_per_s": 4589.68964041247,
+  "p50_ms": 0.20348700002159603,
+  "p95_ms": 0.2988997499983269,
+  "p99_ms": 0.3803862799929902
+}

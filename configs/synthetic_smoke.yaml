@@ -1,0 +1,19 @@
+dataset: synthetic
+root: null
+entities: all
+window: 1
+seeds: [0, 1, 2]
+models:
+  - name: zscore
+    params: {}
+  - name: ewma
+    params: {alpha: 0.1}
+  - name: isolation_forest
+    params: {n_estimators: 50}
+  - name: pca
+    params: {}
+thresholds: [oracle, train_percentile, pot]
+train_percentile: [99.0, 99.5]
+pot:
+  - {level: 0.98, q: 0.001}
+output_dir: reports/runs
