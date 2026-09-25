@@ -1,0 +1,568 @@
+# Ablation sweep: window x hidden/d_model x score_mode, for LSTM-AE and Transformer-AE.
+# Deliberately small (synthetic_n_train/test, max_epochs) so the full 48-setting grid
+# finishes in a few minutes on CPU. One seed here -- seed variance is seed_stats_table's job,
+# run separately with more seeds if you want CIs on top of the ablation itself.
+dataset: synthetic
+root: null
+entities: all
+synthetic_n_train: 400
+synthetic_n_test: 300
+synthetic_d: 3
+seeds:
+- 0
+models:
+- name: lstm_ae
+  label: lstm_ae_w16_h32_window_mean
+  params:
+    window: 16
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w16_d32_window_mean
+  params:
+    window: 16
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w16_h32_last_step
+  params:
+    window: 16
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w16_d32_last_step
+  params:
+    window: 16
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w16_h64_window_mean
+  params:
+    window: 16
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w16_d64_window_mean
+  params:
+    window: 16
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w16_h64_last_step
+  params:
+    window: 16
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w16_d64_last_step
+  params:
+    window: 16
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w16_h128_window_mean
+  params:
+    window: 16
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w16_d128_window_mean
+  params:
+    window: 16
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w16_h128_last_step
+  params:
+    window: 16
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w16_d128_last_step
+  params:
+    window: 16
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w32_h32_window_mean
+  params:
+    window: 32
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w32_d32_window_mean
+  params:
+    window: 32
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w32_h32_last_step
+  params:
+    window: 32
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w32_d32_last_step
+  params:
+    window: 32
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w32_h64_window_mean
+  params:
+    window: 32
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w32_d64_window_mean
+  params:
+    window: 32
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w32_h64_last_step
+  params:
+    window: 32
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w32_d64_last_step
+  params:
+    window: 32
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w32_h128_window_mean
+  params:
+    window: 32
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w32_d128_window_mean
+  params:
+    window: 32
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w32_h128_last_step
+  params:
+    window: 32
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w32_d128_last_step
+  params:
+    window: 32
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w64_h32_window_mean
+  params:
+    window: 64
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w64_d32_window_mean
+  params:
+    window: 64
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w64_h32_last_step
+  params:
+    window: 64
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w64_d32_last_step
+  params:
+    window: 64
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w64_h64_window_mean
+  params:
+    window: 64
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w64_d64_window_mean
+  params:
+    window: 64
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w64_h64_last_step
+  params:
+    window: 64
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w64_d64_last_step
+  params:
+    window: 64
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w64_h128_window_mean
+  params:
+    window: 64
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w64_d128_window_mean
+  params:
+    window: 64
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w64_h128_last_step
+  params:
+    window: 64
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w64_d128_last_step
+  params:
+    window: 64
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w100_h32_window_mean
+  params:
+    window: 100
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w100_d32_window_mean
+  params:
+    window: 100
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w100_h32_last_step
+  params:
+    window: 100
+    hidden: 32
+    layers: 1
+    latent: 8
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w100_d32_last_step
+  params:
+    window: 100
+    d_model: 32
+    nhead: 4
+    layers: 1
+    dim_feedforward: 64
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w100_h64_window_mean
+  params:
+    window: 100
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w100_d64_window_mean
+  params:
+    window: 100
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w100_h64_last_step
+  params:
+    window: 100
+    hidden: 64
+    layers: 1
+    latent: 16
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w100_d64_last_step
+  params:
+    window: 100
+    d_model: 64
+    nhead: 4
+    layers: 1
+    dim_feedforward: 128
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: lstm_ae
+  label: lstm_ae_w100_h128_window_mean
+  params:
+    window: 100
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: transformer_ae
+  label: transformer_ae_w100_d128_window_mean
+  params:
+    window: 100
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: window_mean
+- name: lstm_ae
+  label: lstm_ae_w100_h128_last_step
+  params:
+    window: 100
+    hidden: 128
+    layers: 1
+    latent: 32
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+- name: transformer_ae
+  label: transformer_ae_w100_d128_last_step
+  params:
+    window: 100
+    d_model: 128
+    nhead: 4
+    layers: 1
+    dim_feedforward: 256
+    batch_size: 64
+    max_epochs: 8
+    patience: 3
+    score_mode: last_step
+thresholds:
+- oracle
+output_dir: reports/runs

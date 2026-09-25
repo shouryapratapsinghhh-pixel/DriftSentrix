@@ -1,0 +1,63 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: pip install -e . -r requirements.txt
+      - run: ruff check .
+
+  test-fast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: pip install -e . -r requirements.txt
+      - run: pytest -q -m "not slow"
+
+  test-slow:
+    # deep-model tests: torch training, one per test file. Kept in a
+    # separate job so a broken baseline/metrics/API test (test-fast) fails
+    # fast without waiting on this, and so CI's overall wall-clock time is
+    # bounded by whichever of these two runs longer, not their sum.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: pip install -e . -r requirements.txt
+      - run: pytest -q -m "slow"
+
+  regression-gate:
+    runs-on: ubuntu-latest
+    needs: [test-fast]  # no point gating metrics if the basic test suite is already broken
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: pip install -e . -r requirements.txt
+      - run: python scripts/regression_gate.py
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [test-fast]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false  # build-only: proves the image builds, never publishes it

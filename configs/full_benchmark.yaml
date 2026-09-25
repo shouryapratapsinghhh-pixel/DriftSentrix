@@ -1,0 +1,44 @@
+dataset: synthetic
+root: null
+entities: all
+synthetic_n_train: 2000
+synthetic_n_test: 1000
+synthetic_d: 5
+seeds: [0, 1, 2]
+models:
+  - name: random
+    params: {}
+  - name: zscore
+    params: {}
+  - name: ewma
+    params: {alpha: 0.1}
+  - name: isolation_forest
+    params: {n_estimators: 100}
+  - name: pca
+    params: {}
+  - name: lstm_ae
+    label: lstm_ae
+    params:
+      window: 32
+      hidden: 64
+      layers: 1
+      latent: 16
+      batch_size: 128
+      max_epochs: 30
+      patience: 5
+  - name: transformer_ae
+    label: transformer_ae
+    params:
+      window: 32
+      d_model: 64
+      nhead: 4
+      layers: 2
+      dim_feedforward: 128
+      batch_size: 128
+      max_epochs: 30
+      patience: 5
+thresholds: [oracle, train_percentile, pot]
+train_percentile: [99.5]
+pot:
+  - {level: 0.98, q: 0.001}
+output_dir: reports/runs
