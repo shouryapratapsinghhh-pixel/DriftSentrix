@@ -55,7 +55,7 @@ st.title("DriftSentrix")
 st.caption(
     "Multivariate time-series anomaly detection with an honest evaluation protocol. "
     "[Full code, tests, FastAPI service, and the LSTM/Transformer autoencoders on GitHub]"
-    "(https://github.com/) -- this page is a live demo of the baseline detectors and the "
+    "(https://github.com/shouryapratapsinghhh-pixel/DriftSentrix) -- this page is a live demo of the baseline detectors and the "
     "project's headline finding, not the full pipeline."
 )
 

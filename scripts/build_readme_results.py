@@ -54,7 +54,7 @@ def build_section() -> str:
             f"above, scores a mean point-F1 of **{mean_point:.3f}** but a mean PA-F1 of "
             f"**{mean_pa:.3f}** -- a **{mean_pa / mean_point:.1f}x inflation** from the metric "
             f"alone, with zero actual detection ability behind it. See "
-            f"`reports/figures/pa_inflation.png` and `reports/pa_inflation.csv` for the full "
+            f"`docs/img/pa_inflation.png` and `reports/pa_inflation.csv` for the full "
             f"per-model breakdown.\n"
         )
 

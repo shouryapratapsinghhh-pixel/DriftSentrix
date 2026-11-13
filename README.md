@@ -7,6 +7,10 @@
 Streaming multivariate time-series anomaly detection with an honest evaluation
 protocol, a served streaming scorer, and drift monitoring.
 
+> **All saved results in this repo are on synthetic data** (`make_synthetic` in
+> `src/anomaly/data/loaders.py`). Loaders for SMD and NASA SMAP/MSL exist and are
+> tested, but no real-dataset results have been produced or are claimed here.
+
 ## The problem
 
 Detecting faults in a multivariate sensor/server stream, with few or no
@@ -46,7 +50,7 @@ Full component breakdown and the causality guarantee: `docs/ARCHITECTURE.md`.
 **bash / zsh**
 ```bash
 pip install -e . -r requirements.txt
-pytest -q                                              # 137 tests, ~17s
+pytest -q                                              # 139 tests, ~15s
 python -m anomaly.run_baselines --dataset synthetic
 ```
 
@@ -107,7 +111,7 @@ not hand-typed — see `scripts/build_readme_results.py`.
 
 ### PA-inflation study
 
-A pure-random detector, flagging points at the same rate as each real detector above, scores a mean point-F1 of **0.097** but a mean PA-F1 of **0.621** -- a **6.4x inflation** from the metric alone, with zero actual detection ability behind it. See `reports/figures/pa_inflation.png` and `reports/pa_inflation.csv` for the full per-model breakdown.
+A pure-random detector, flagging points at the same rate as each real detector above, scores a mean point-F1 of **0.097** but a mean PA-F1 of **0.621** -- a **6.4x inflation** from the metric alone, with zero actual detection ability behind it. See `docs/img/pa_inflation.png` and `reports/pa_inflation.csv` for the full per-model breakdown.
 
 ### LSTM-AE streaming latency (in_process, n=1000)
 p50 **0.27 ms**, p95 **0.34 ms**, p99 **0.35 ms** -- throughput **3569 points/s**.
@@ -119,7 +123,7 @@ p50 **0.20 ms**, p95 **0.30 ms**, p99 **0.38 ms** -- throughput **4590 points/s*
 
 ![PA-inflation study: real model vs. rate-matched random detector](docs/img/pa_inflation.png)
 
-*(This figure is committed for visibility — everything else in the Results section above is generated fresh by the reproduction command; regenerate it and it will match `reports/figures/pa_inflation.png`.)*
+*(This figure is committed for visibility — everything else in the Results section above is generated fresh by the reproduction command; the PA-inflation study script writes a fresh copy to the gitignored `reports/figures/` folder; copy it over `docs/img/pa_inflation.png` to update this one.)*
 
 ## Running the service
 
@@ -166,8 +170,8 @@ streamlit run streamlit_app.py
   design at very high throughput. See `src/anomaly/streaming/scorer.py`.
 - **PSI is noisy on small windows.** A monitor expecting a 500-point window
   can show elevated PSI on as few as 30-50 points from the *same*
-  distribution, from sampling noise alone — see `docs/EVALUATION.md` and
-  `src/anomaly/monitor/drift.py`'s docstring.
+  distribution, from sampling noise alone — see `src/anomaly/monitor/drift.py`'s
+  docstring and `docs/ASSUMPTIONS.md`.
 - **POT needs enough validation data.** With too few excesses over the
   chosen quantile, the GPD fit is unreliable — the code detects this and
   warns (`MIN_EXCESSES_FOR_FIT` in `eval/pot.py`) rather than silently
@@ -179,7 +183,7 @@ streamlit run streamlit_app.py
 ## Roadmap
 
 - Real-data results (SMD, SMAP/MSL) once downloaded locally
-- TranAD-style two-phase Transformer variant (stretch item in `AGENTS.md`)
+- TranAD-style two-phase Transformer variant
 - Streaming SPOT (adaptive POT that updates with non-alarm points)
 - Per-entity model sharding for the service, beyond the current shared-model /
   per-entity-state design
@@ -187,6 +191,5 @@ streamlit run streamlit_app.py
 ## Docs
 
 - `docs/ARCHITECTURE.md` — component breakdown, Mermaid diagram, causality guarantee
-- `docs/EVALUATION.md` — metric definitions, oracle vs. deployable thresholds, POT/PSI caveats
 - `docs/ASSUMPTIONS.md` — open assumptions and TODOs
 - `reports/model_card.md` — intended use, training data, failure modes, ethical notes
